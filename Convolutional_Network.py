@@ -1,4 +1,5 @@
 # **************** PARTE 1: EN ESTA PARTE SE CONSTRUYE LA RED NEURONAL CONVOLUCIONAL *****************
+# Este es el principal modulo donde se colocan los parametros y se construye el modelo para realizar las predicciones
 
 # Se importan las librerias a utilizar
 from keras.models import Sequential
