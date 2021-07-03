@@ -128,7 +128,7 @@ print(history_dict.keys())
 
 # Estos son las claves del diccionario obtenido de history_dict.keys(), con ellos obtenemos los valores de cada clave que se generaron por cada epoca de entrenamiento
 acc      = history.history[     'accuracy' ]
-val_acc  = history.history[ 'val_accuracy' ] # esta es la presicion FINAL!
+val_acc  = history.history[ 'val_accuracy' ] # esta es la presicion FINAL del modelo!
 loss     = history.history[    'loss' ]
 val_loss = history.history['val_loss' ]  
 
@@ -186,7 +186,7 @@ for accu, vala, vals, loss in zip(acc, val_acc, val_loss, loss):
     hoja.cell(row=1, column=3, value='Val_accuracy')
     hoja.cell(row=1, column=4, value='Val_loss')
     hoja.cell(row=1, column=5, value='Loss')
-    
+
     hoja.cell(column=1, row=fila, value=num)
     hoja.cell(column=accuary, row=fila, value= accu)
     hoja.cell(column=val_ac, row=fila, value= vala)
