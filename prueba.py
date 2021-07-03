@@ -1,4 +1,4 @@
-# *** Programa para comprobar el funcionamiento de una matriz numpy y el acceso a sus posiciones ***
+# *** Script para comprobar el funcionamiento de una matriz numpy y el acceso a sus posiciones ***
 # esta comprobacion me sirvio al momento de crear el excel y la matriz de confusion en el modulo
 # Confusion_Matrix.py
 #import numpy as np
