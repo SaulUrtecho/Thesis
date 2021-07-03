@@ -1,4 +1,5 @@
 # ******** PARTE 2: METRICAS DE DESEMPEÑO MATRIZ DE CONFUSION *******
+# Este modulo se implemento para medir la eficacia del modelo respecto a los resultados arrojados
 # Se utiliza la libreria sklearn para poder implementar sus utilidades
 import numpy as np 
 import pandas as pd 
