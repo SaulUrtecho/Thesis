@@ -154,13 +154,13 @@ class Principal:
             self.subVentana.quit() 
             self.subVentana.destroy() 
                                 
-
+        # Se crea el boton que aparecera en la ventana secuendaria para salir
         buttonCerrar = Button(self.subVentana, text = "Cerrar", command = CerrarVentanaSecundaria)
-        buttonCerrar.grid(row = 2, column = 3)
+        buttonCerrar.grid(row = 2, column = 3) # este ira en la fila 2 y columna 3
 
-        self.master.wait_window(self.subVentana)
+        self.master.wait_window(self.subVentana) # espera hasta que la subventana sea destruida
 
-        return respuesta
+        return respuesta # Retorna el valor 0 o 1 dependiendo de la prediccion
 
     #
     def Cle(self): 
