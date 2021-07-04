@@ -39,7 +39,7 @@ class Principal:
         self.etiqueta.pack()
         self.botonCargar = Button(self.master, text = "Cargar Imagen", command = self.select_image) # Cargar la imagen
         self.botonCargar.pack()
-        self.master.mainloop()
+        self.master.mainloop()  # Este mainloop es el que mantiene la VENTANA PRINCIPAL FUNCIONANDO
         
     def select_image(self):
 
@@ -64,7 +64,8 @@ class Principal:
             self.panel_A.configure(image = image)
             self.panel_A.image = image
             self.panel_A.pack(side="bottom")
-        root.mainloop()
+      
+        self.master.mainloop() # Este mainloop se coloca aqui para mantener la VENTANA PRINCIPAL FUNCIONANDO despues de cerrar la ventana secundaria del resultado de la prediccion
 
     def predict(self):  # esta funcion se activa al momento de darle click al boton "Detectar estado de salud"
         # las variables panel son creadas para representar ese espacion donde se colocara una imagen
@@ -169,11 +170,13 @@ class Principal:
         self.botonSalir.pack_forget()
         self.panel_A.pack_forget()
 
-    # esta funcion sirve para cerrar el programa principal   
+    # esta funcion sirve para cerrar LA VENTANA PRINCIPAL   
     def Salir(self):
         self.master.destroy()
         
       
-    
-root = Tk()  # creamos un objeto de la clase Tk()
-miVentana = Principal(root) # le pasamos ese objeto como parametro a nuestro constructor y nuevo objeto
+# METODO MAIN PARA HACER FUNCIONAR LA UI
+if __name__ == "__main__":
+    root = Tk()
+    Principal(root)
+  
