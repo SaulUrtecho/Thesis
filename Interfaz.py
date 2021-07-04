@@ -162,17 +162,18 @@ class Principal:
 
         return respuesta # Retorna el valor 0 o 1 dependiendo de la prediccion
 
-    #
+    # esta funcion sirve para eliminar los widgets una vez realizada una nueva prediccion
     def Cle(self): 
         self.botonPredict.pack_forget()
         self.botonNvaDeteccion.pack_forget()
         self.botonSalir.pack_forget()
         self.panel_A.pack_forget()
-        
+
+    # esta funcion sirve para cerrar el programa principal   
     def Salir(self):
         self.master.destroy()
-            #root.destroy()
+        
       
-            
-root = Tk()
-miVentana = Principal(root)
+    
+root = Tk()  # creamos un objeto de la clase Tk()
+miVentana = Principal(root) # le pasamos ese objeto como parametro a nuestro constructor y nuevo objeto
