@@ -14,19 +14,8 @@ from keras.initializers import glorot_uniform
 from tkinter import Tk, Label, Button, Entry, ttk
 import tkinter
 
-# Configuramos los parametros y las rutas a utilizar en la interfaz
-enfermo = './enfermo.jpg'
-sano = './sano.jpg'
+# Configuramos el alto y ancho que tendran las imagenes a utilizar en la interfaz
 longitud, altura = 200, 200
-longitud2, altura2 = 200, 200
-modelo = './modelo/MODELO_V1.h5'
-pesos = './modelo/PESOS_V1.h5'
-
-# Cargamos el modelo y los pesos obtenidos del entrenamiento
-with CustomObjectScope({'GlorotUniform':glorot_uniform()}):
-    cnn = load_model(modelo)
-cnn.load_weights(pesos)
-
 
 # Esta es la clase que crea la interfaz grafica se utiliza la POO
 class Principal():
@@ -34,13 +23,36 @@ class Principal():
     # este metodo inicializa toda la interfaz
     def __init__(self, master):
         self.master = master
-        self.master.title("Predicción de Salud en Corales del Caribe Mexicano")
-        self.master.geometry("500x300+450+100")
+        self.master.title("(TESIS) Predicción de Salud en Corales del Caribe Mexicano")
+        self.master.geometry("500x400+450+100")
+        self.etiquetaModel = Label(self.master, text="Seleccione el modelo: ")
+        self.etiquetaModel.pack()
+        self.botonCargarModelo = Button(self.master, text="Cargar Modelo", command=self.cargar_modelo) # boton para cargar el modelo obtenido de la red
+        self.botonCargarModelo.pack()
+        self.etiquetaPesos = Label(self.master, text="Seleccione los pesos: ")
+        self.etiquetaPesos.pack()
+        self.botonCargarPesos = Button(self.master, text="Cargar Pesos", command=self.cargar_pesos) # boton para cargar los pesos obtenidos de la red
+        self.botonCargarPesos.pack()
+
         self.etiqueta = Label(self.master, text = "Seleccione Imagen a Evaluar: ")
         self.etiqueta.pack()
         self.botonCargar = Button(self.master, text = "Cargar Imagen", command = self.select_image) # Cargar la imagen
         self.botonCargar.pack()
         self.master.mainloop()  # Este mainloop es el que mantiene la VENTANA PRINCIPAL FUNCIONANDO
+
+    def cargar_modelo(self): # en esta funcion obtenemos la ruta del modelo
+        self.ruta_modelo = fd.askopenfilename()
+        if len(self.ruta_modelo) >0: # si se selecciono una imagen se eliminan los widgets si no no
+            self.etiquetaModel.pack_forget()
+            self.botonCargarModelo.pack_forget()
+        return self.ruta_modelo
+    
+    def cargar_pesos(self): # en esta funcion obtenemos la ruta de los pesos
+        self.ruta_pesos=fd.askopenfilename()
+        if len(self.ruta_pesos)>0: # si se selecciono una imagen se eliminan los widgets si no no
+            self.etiquetaPesos.pack_forget()
+            self.botonCargarPesos.pack_forget()
+        return self.ruta_pesos
         
     def select_image(self):
         self.etiqueta.pack_forget() # al momento de seleccionar la imagen se elimina la etiqueta que pide seleccionar imagen
@@ -50,7 +62,7 @@ class Principal():
         
         if len(self.path) > 0:  # Si alguna imagen fue seleccionada
             image = cv2.imread(self.path) # la imagen es leida
-            image = cv2.resize(image, (longitud2, altura2)) # Se cambia el tamaño a 300x300
+            image = cv2.resize(image, (longitud, altura)) # Se cambia el tamaño a 300x300
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # Se convierte a RGB
             image = Image.fromarray(image) # se convierte de matriz a imagen
             image = ImageTk.PhotoImage(image) # La funcion PhotoImage() crea una instancia de imagen para colocar en una label
@@ -80,7 +92,7 @@ class Principal():
 
         if len(self.path) > 0:  # Si alguna imagen fue seleccionada
             image = cv2.imread(self.path) # la imagen es leida
-            image = cv2.resize(image, (longitud2, altura2)) # Se cambia el tamaño a 300x300
+            image = cv2.resize(image, (longitud, altura)) # Se cambia el tamaño a 300x300
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # Se convierte a RGB
             image = Image.fromarray(image) # se convierte de matriz a imagen
             image = ImageTk.PhotoImage(image) # La funcion PhotoImage() crea una instancia de imagen para colocar en una label
@@ -102,11 +114,14 @@ class Principal():
 
 
     def predict(self):  # esta funcion se activa al momento de darle click al boton "Detectar estado de salud"
-        #self.botonCargar.pack_forget()
         
         self.botonPredict.pack_forget()  # los widgets son limpiados de nuevo al hacer una prediccion ya que si no se sobreescriben en los anteriores
         self.botonSelNuevament.pack_forget()
         self.panel_A.pack_forget()
+
+        with CustomObjectScope({'GlorotUniform':glorot_uniform()}): # cargamos el modelo y los pesos obtenidos de las rutas
+            cnn = load_model(self.ruta_modelo)
+        cnn.load_weights(self.ruta_pesos)
 
         # las variables panel son creadas para representar ese espacion donde se colocara una imagen
         panel_Ventana_secundaria = None
