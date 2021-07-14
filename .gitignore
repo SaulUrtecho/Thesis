@@ -1,13 +1,12 @@
-enfermo.jpg
-
-enfermo1.jpg
-
-sano.jpg
-
-sano1.jpg
 
 .vscode/
 
 DATASET/
 
-MODELO/
+PRIMERA_PRUEBA(ACCURACY 97)/
+
+METRICAS/
+
+DATOS_RED/
+
+IMAGENES_PRUEBA/
