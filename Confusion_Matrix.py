@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 test_path = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATASET/TEST_SET'
 
 # Cargamos el modelo
-modelo = load_model('./MODELO/MODELO_V1.h5')
+modelo = load_model('./DATOS_RED/MODELO_V2.h5')
 
 # Se convierten los valores a punto flotante, y se crea un generador para hacer las pruebas ya que el modelo 
 # fue creado usando generadores
@@ -65,7 +65,7 @@ print()
 # y la columna class que contiene las clases reales, este como es una lista comun, se obtienen todos los elementos con [:]
 # el excel es posteriormente se guarda en la carpeta MODELO
 results = pd.DataFrame({"file":filenames, "pr":prediccion[:,0], "class":real[:]})
-results.to_excel('./MODELO/Predicciones.xlsx', sheet_name='Resultados de las Predicciones')
+results.to_excel('./METRICAS/Predicciones2.xlsx', sheet_name='Resultados de las Predicciones')
 print(results)
 
 
@@ -106,7 +106,7 @@ print('Puntaje F1: ', f1)
 
 ######### Se Guardan Las Metricas en un Archivo de Texto ##########
 
-archivoPuntajes = open('./MODELO/Scores.txt', 'w')
+archivoPuntajes = open('./METRICAS/Scores2.txt', 'w')
 archivoPuntajes.write('Puntaje de Clasificación de Precisión: ' + str(ac) + '\n')
 archivoPuntajes.write('\n')
 archivoPuntajes.write('Puntaje de Recuperación: ' + str(rc) + '\n')
@@ -130,6 +130,6 @@ plt.yticks(tick_marks, classNames)
 for fila in range(2):
     for columna in range(2):
         plt.text(columna,fila, str(cm[fila][columna]))
-plt.savefig('./MODELO/MatrizConfusion.png')
+plt.savefig('./METRICAS/MatrizConfusion2.png')
 plt.show()
 plt.close()

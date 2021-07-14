@@ -115,13 +115,13 @@ history = model.fit(training_set, steps_per_epoch=pasos_train, epochs=15, valida
 
 
 # --- Creacion del directorio donde se guardara el modelo ---
-directorio ='./MODELO/'
+directorio ='./DATOS_RED/'
 # si el directorio no existe se crea
 if not os.path.exists(directorio):
     os.mkdir(directorio)  # se crea la carpeta en la ruta actual del proyecto
 #el modelo y los pesos son guardados respectivamente
-model.save('./MODELO/MODELO_V1.h5')
-model.save_weights('./MODELO/PESOS_V1.h5')
+model.save('./DATOS_RED/MODELO_V2.h5')
+model.save_weights('./DATOS_RED/PESOS_V2.h5')
 
 # Con el objeto creado podemos acceder al diccionario donde se almacenan los parametros que arroja el modelo
 history_dict = history.history
@@ -159,6 +159,7 @@ plt.title('Training and validation loss')
 plt.xlabel('Epochs')
 plt.ylabel('Loss')
 plt.legend()
+plt.savefig('./DATOS_RED/Perdidas.png')
 plt.show()
 
 plt.plot(epochs, acc, 'y', label='Training acc')
@@ -167,6 +168,7 @@ plt.title('Training and validation accuracy')
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.legend()
+plt.savefig('./DATOS_RED/Precisiones.png')
 plt.show()
 
 # Aqui se crea el archivo excel donde se almacena los datos del entrenamiento
@@ -195,4 +197,4 @@ for accu, vala, vals, loss in zip(acc, val_acc, val_loss, loss):
     hoja.cell(column=lss, row=fila, value= loss)
     fila+=1
     num+=1
-wb.save('./MODELO/RESULTADOS.xlsx') # los datos son guardados en la ruta especificada
+wb.save('./DATOS_RED/RESULTADOS.xlsx') # los datos son guardados en la ruta especificada
