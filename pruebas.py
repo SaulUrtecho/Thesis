@@ -22,5 +22,34 @@ x = np.expand_dims(x, axis = 0)
 print(x.shape)
 print(type(x))'''
 
-array = [[1]]
-print(array[0][0])
+#array = [[1]]
+#print(array[0][0])
+from tkinter import*
+from tkinter import filedialog as fd 
+from tkinter import Tk, Label, Button, Entry, ttk
+import tkinter
+
+class BotonPrueba():
+
+    def __init__(self, master):
+        self.master = master
+        self.master.geometry("300x200+450+100")
+        self.botonCargarModelo = Button(self.master, text="Cargar Modelo", command=self.cargar_modelo) # boton para cargar el modelo obtenido de la red
+        self.botonCargarModelo.pack()
+        self.botonSalir = Button(self.master,text="salir",command=self.Salir)
+        self.botonSalir.pack()
+        self.master.mainloop()
+
+    def cargar_modelo(self):
+        self.ruta_modelo = fd.askopenfilename()
+        print(self.ruta_modelo)
+        print(type(self.ruta_modelo))
+
+    def Salir(self):
+        self.master.destroy()
+
+
+
+if __name__ == "__main__":
+    root = Tk()
+    BotonPrueba(root)
