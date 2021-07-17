@@ -13,10 +13,16 @@ from keras.utils import CustomObjectScope
 from keras.initializers import glorot_uniform
 from tkinter import Tk, Label, Button, Entry, ttk
 import tkinter
+import re
 
 # Configuramos el alto y ancho que tendran las imagenes a utilizar en la interfaz
 longitud, altura = 200, 200
 ruta_logo_itm = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/logo.jpg'
+rutaModelo2 = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATOS_RED/MODELO_V2.h5'
+rutaModelo = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/MODELO_V1.h5'
+
+rutaPesos2 = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATOS_RED/PESOS_V2.h5'
+rutaPesos = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/PESOS_V1.h5'
 # Esta es la clase que crea la interfaz grafica se utiliza la POO
 class Principal():
     # Metodo constructor el cual recibe un objeto Tk()
@@ -52,21 +58,47 @@ class Principal():
 
     def cargar_modelo(self): # en esta funcion obtenemos la ruta del modelo
         self.ruta_modelo = fd.askopenfilename()
-        #if self.ruta_modelo != 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/MODELO/MODELO_V1.h5':
-           # self.ventana_alerta = Toplevel()
+        
+        if len(self.ruta_modelo) > 0:
 
+            if self.ruta_modelo != rutaModelo2 and self.ruta_modelo != rutaModelo:
+                self.ventana_alerta = Toplevel()
+                self.ventana_alerta.geometry("300x100+500+250") # Se establece el tamaño de la ventana secundaria
+                self.ventana_alerta.wm_title("WARNING!!!") # Se le asigna el titulo
+                self.ventana_alerta.focus_set() # Este metodo enfoca la ventana secundaria 
+                self.ventana_alerta.grab_set() # desactivamos la ventana principal 
+                self.aviso = Label(self.ventana_alerta, text = "No ha seleccionado el modelo\nIntente Nuevamente!!") # asignamos la etiqueta para mencionar que es un coral enfermo
+                self.aviso.pack()
+                self.aviso.config(fg = "black")
+                self.botonCerrar = Button(self.ventana_alerta, text='Aceptar', command=self.cerrar_ventana_warning)
+                self.botonCerrar.pack()
+            else:
+                self.etiquetaModel.pack_forget()
+                self.botonCargarModelo.pack_forget()
 
-        if len(self.ruta_modelo) >0: # si se selecciono una imagen se eliminan los widgets si no no
-            self.etiquetaModel.pack_forget()
-            self.botonCargarModelo.pack_forget()
         return self.ruta_modelo
     
     def cargar_pesos(self): # en esta funcion obtenemos la ruta de los pesos
         self.ruta_pesos=fd.askopenfilename()
         if len(self.ruta_pesos)>0: # si se selecciono una imagen se eliminan los widgets si no no
-            self.etiquetaPesos.pack_forget()
-            self.botonCargarPesos.pack_forget()
+            if self.ruta_pesos != rutaPesos2 and self.ruta_pesos != rutaPesos:
+                self.ventana_alerta = Toplevel()
+                self.ventana_alerta.geometry("300x100+500+250") # Se establece el tamaño de la ventana secundaria
+                self.ventana_alerta.wm_title("WARNING!!!") # Se le asigna el titulo
+                self.ventana_alerta.focus_set() # Este metodo enfoca la ventana secundaria 
+                self.ventana_alerta.grab_set() # desactivamos la ventana principal 
+                self.aviso = Label(self.ventana_alerta, text = "No ha seleccionado los pesos\nIntente Nuevamente!!") # asignamos la etiqueta para mencionar que es un coral enfermo
+                self.aviso.pack()
+                self.aviso.config(fg = "black")
+                self.botonCerrar = Button(self.ventana_alerta, text='Aceptar', command=self.cerrar_ventana_warning)
+                self.botonCerrar.pack()
+            else:
+                self.etiquetaPesos.pack_forget()
+                self.botonCargarPesos.pack_forget()
         return self.ruta_pesos
+
+    def cerrar_ventana_warning(self):
+        self.ventana_alerta.destroy()
         
     def select_image(self):
         #self.etiqueta.pack_forget() # al momento de seleccionar la imagen se elimina la etiqueta que pide seleccionar imagen
