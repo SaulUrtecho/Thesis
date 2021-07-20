@@ -44,12 +44,11 @@ class Principal():
         self.etiqueta.pack()
         self.botonCargar = Button(self.master, text = "Cargar Imagen", command = self.select_image) # Cargar la imagen
         self.botonCargar.pack()
-        logo = cv2.imread(ruta_logo_itm)
-        #image = cv2.resize(logo, (longitud, altura)) # Se cambia el tamaño a 300x300
+        logo = cv2.imread(ruta_logo_itm) # Leemos el logo del ITM
         logo = cv2.cvtColor(logo, cv2.COLOR_BGR2RGB) # Se convierte a RGB
         logo = Image.fromarray(logo) # se convierte de matriz a imagen
         logo = ImageTk.PhotoImage(logo)
-        self.panelLogo = Label(self.master,image = logo)
+        self.panelLogo = Label(self.master,image = logo) # El logo se coloca en una etiqueta
         self.panelLogo.logo = logo
         self.panelLogo.pack(side = "bottom")
 
@@ -93,7 +92,7 @@ class Principal():
                 self.botonCerrar = Button(self.ventana_alerta, text='Aceptar', command=self.cerrar_ventana_warning)
                 self.botonCerrar.pack()
             else:
-                self.etiquetaPesos.pack_forget()
+                self.etiquetaPesos.pack_forget() # Si los pesos son elegidos se borran los botones
                 self.botonCargarPesos.pack_forget()
         return self.ruta_pesos
 
@@ -101,64 +100,89 @@ class Principal():
         self.ventana_alerta.destroy()
         
     def select_image(self):
-        #self.etiqueta.pack_forget() # al momento de seleccionar la imagen se elimina la etiqueta que pide seleccionar imagen
-        #self.botonCargar.pack_forget() # el boton cargar se elimina al seleccionar la imagen
+
         panel_A = None # esta variable contendra la imagen que se muestra al momento de seleccionar la imagen
         self.path = fd.askopenfilename() # Abre una ventana de dialogo para seleccionar una imagen, y devuelve la ruta de la imagen seleccionada
-        
-        if len(self.path) > 0:  # Si alguna imagen fue seleccionada
-            self.etiqueta.pack_forget() # al momento de seleccionar la imagen se elimina la etiqueta que pide seleccionar imagen
-            self.botonCargar.pack_forget() # el boton cargar se elimina al seleccionar la imagen
-            self.panelLogo.pack_forget()
-            image = cv2.imread(self.path) # la imagen es leida
-            image = cv2.resize(image, (longitud, altura)) # Se cambia el tamaño a 300x300
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # Se convierte a RGB
-            image = Image.fromarray(image) # se convierte de matriz a imagen
-            image = ImageTk.PhotoImage(image) # La funcion PhotoImage() crea una instancia de imagen para colocar en una label
-            self.imagen_copia = image # se crea una copia de la imagen para colocarla en la ventana secundaria al momento de predecir
-            self.botonPredict = Button(text="Detectar Estado de Salud", command = self.predict) # se crea el boton que hace la prediccion
-            self.botonPredict.pack() # el boton es colocado en la interfaz
-            self.botonSelNuevament = Button(text="Seleccionar otra imagen", command = self.select_image2)
-            self.botonSelNuevament.pack()
+        if len(self.path) > 0:
 
-        if panel_A is None: # Si la variable panel_A esta inicializada en nula
-            self.panel_A = Label(self.master, image = image)  # se carga la imagen en la label
-            self.panel_A.image = image 
-            self.panel_A.pack(side = "bottom")
-        else:
-            self.panel_A.configure(self.master, image = image)
-            self.panel_A.image = image
-            self.panel_A.pack(side="bottom")
+            if re.search("\.(jpg|jpeg|JPG|png|bmp|tiff)$", self.path): # Validamos que el usuario seleccione una imagen
+
+                self.etiqueta.pack_forget() # al momento de seleccionar la imagen se elimina la etiqueta que pide seleccionar imagen
+                self.botonCargar.pack_forget() # el boton cargar se elimina al seleccionar la imagen
+                self.panelLogo.pack_forget()
+                image = cv2.imread(self.path) # la imagen es leida
+                image = cv2.resize(image, (longitud, altura)) # Se cambia el tamaño a 300x300
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # Se convierte a RGB
+                image = Image.fromarray(image) # se convierte de matriz a imagen
+                image = ImageTk.PhotoImage(image) # La funcion PhotoImage() crea una instancia de imagen para colocar en una label
+                self.imagen_copia = image # se crea una copia de la imagen para colocarla en la ventana secundaria al momento de predecir
+                self.botonPredict = Button(text="Detectar Estado de Salud", command = self.predict) # se crea el boton que hace la prediccion
+                self.botonPredict.pack() # el boton es colocado en la interfaz
+                self.botonSelNuevament = Button(text="Seleccionar otra imagen", command = self.select_image2)
+                self.botonSelNuevament.pack()
+
+                if panel_A is None: # Si la variable panel_A esta inicializada en nula
+                    self.panel_A = Label(self.master, image = image)  # se carga la imagen en la label
+                    self.panel_A.image = image 
+                    self.panel_A.pack(side = "bottom")
+                else:
+                    self.panel_A.configure(self.master, image = image)
+                    self.panel_A.image = image
+                    self.panel_A.pack(side="bottom")
+            else:
+                self.ventana_alerta = Toplevel()
+                self.ventana_alerta.geometry("300x100+500+250") # Se establece el tamaño de la ventana secundaria
+                self.ventana_alerta.wm_title("WARNING!!!") # Se le asigna el titulo
+                self.ventana_alerta.focus_set() # Este metodo enfoca la ventana secundaria 
+                self.ventana_alerta.grab_set() # desactivamos la ventana principal 
+                self.aviso = Label(self.ventana_alerta, text = "No ha seleccionado una imagen\nIntente Nuevamente!!") # asignamos la etiqueta para mencionar que es un coral enfermo
+                self.aviso.pack()
+                self.aviso.config(fg = "black")
+                self.botonCerrar = Button(self.ventana_alerta, text='Aceptar', command=self.cerrar_ventana_warning)
+                self.botonCerrar.pack()
       
-        self.master.mainloop() # Este mainloop se coloca aqui para mantener la VENTANA PRINCIPAL FUNCIONANDO despues de cerrar la ventana secundaria del resultado de la prediccion
+            self.master.mainloop() # Este mainloop se coloca aqui para mantener la VENTANA PRINCIPAL FUNCIONANDO despues de cerrar la ventana secundaria del resultado de la prediccion
 
     def select_image2(self): # esta funcion se creo si el usuario quiere seleccionar otra imagen y no la seleccionada
-        self.panel_A.pack_forget() # se limpia el panel de la imagen anterior
-        self.botonPredict.pack_forget() # se limpia el boton predecir
-        self.botonSelNuevament.pack_forget() # se limpia el boton para seleccionar otra imagen 
+        
         panel_A = None # se inicializa de nuevo el panel como nulo
         self.path = fd.askopenfilename()
 
         if len(self.path) > 0:  # Si alguna imagen fue seleccionada
-            image = cv2.imread(self.path) # la imagen es leida
-            image = cv2.resize(image, (longitud, altura)) # Se cambia el tamaño a 300x300
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # Se convierte a RGB
-            image = Image.fromarray(image) # se convierte de matriz a imagen
-            image = ImageTk.PhotoImage(image) # La funcion PhotoImage() crea una instancia de imagen para colocar en una label
-            self.imagen_copia = image # se crea una copia de la imagen para colocarla en la ventana secundaria al momento de hacer la prediccion
-            self.botonPredict = Button(text="Detectar Estado de Salud", command = self.predict) # se crea el boton que hace la prediccion
-            self.botonPredict.pack() # el boton es colocado en la interfaz
-            self.botonSelNuevament = Button(text="Seleccionar otra imagen", command = self.select_image2) # se crea el boton para seleccionar otra imagen si lo desea
-            self.botonSelNuevament.pack() # el boton se coloca en la interfaz
+            if re.search("\.(jpg|jpeg|JPG|png|bmp|tiff)$", self.path):
+                self.panel_A.pack_forget() # se limpia el panel de la imagen anterior
+                self.botonPredict.pack_forget() # se limpia el boton predecir
+                self.botonSelNuevament.pack_forget() # se limpia el boton para seleccionar otra imagen 
+                image = cv2.imread(self.path) # la imagen es leida
+                image = cv2.resize(image, (longitud, altura)) # Se cambia el tamaño a 300x300
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # Se convierte a RGB
+                image = Image.fromarray(image) # se convierte de matriz a imagen
+                image = ImageTk.PhotoImage(image) # La funcion PhotoImage() crea una instancia de imagen para colocar en una label
+                self.imagen_copia = image # se crea una copia de la imagen para colocarla en la ventana secundaria al momento de hacer la prediccion
+                self.botonPredict = Button(text="Detectar Estado de Salud", command = self.predict) # se crea el boton que hace la prediccion
+                self.botonPredict.pack() # el boton es colocado en la interfaz
+                self.botonSelNuevament = Button(text="Seleccionar otra imagen", command = self.select_image2) # se crea el boton para seleccionar otra imagen si lo desea
+                self.botonSelNuevament.pack() # el boton se coloca en la interfaz
 
-        if panel_A is None: # Si la variable panel_A esta inicializada en nula
-            self.panel_A = Label(self.master, image = image)  # se carga la imagen en la label
-            self.panel_A.image = image 
-            self.panel_A.pack(side = "bottom")
-        else:
-            self.panel_A.configure(self.master, image = image)
-            self.panel_A.image = image
-            self.panel_A.pack(side="bottom")
+                if panel_A is None: # Si la variable panel_A esta inicializada en nula
+                    self.panel_A = Label(self.master, image = image)  # se carga la imagen en la label
+                    self.panel_A.image = image 
+                    self.panel_A.pack(side = "bottom")
+                else:
+                    self.panel_A.configure(self.master, image = image)
+                    self.panel_A.image = image
+                    self.panel_A.pack(side="bottom")
+            else:
+                self.ventana_alerta = Toplevel()
+                self.ventana_alerta.geometry("300x100+500+250") # Se establece el tamaño de la ventana secundaria
+                self.ventana_alerta.wm_title("WARNING!!!") # Se le asigna el titulo
+                self.ventana_alerta.focus_set() # Este metodo enfoca la ventana secundaria 
+                self.ventana_alerta.grab_set() # desactivamos la ventana principal 
+                self.aviso = Label(self.ventana_alerta, text = "No ha seleccionado una imagen\nIntente Nuevamente!!") # asignamos la etiqueta para mencionar que es un coral enfermo
+                self.aviso.pack()
+                self.aviso.config(fg = "black")
+                self.botonCerrar = Button(self.ventana_alerta, text='Aceptar', command=self.cerrar_ventana_warning)
+                self.botonCerrar.pack()
       
         self.master.mainloop()
 
