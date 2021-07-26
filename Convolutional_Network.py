@@ -73,7 +73,6 @@ print(training_set.class_indices)
 pasos_train = training_set.n//training_set.batch_size
 pasos_val = test_set.n//test_set.batch_size
 
-
 # Creando la Red Neuronal Convolucional
 model = Sequential()
 
@@ -197,4 +196,4 @@ for accu, vala, vals, loss in zip(acc, val_acc, val_loss, loss):
     hoja.cell(column=lss, row=fila, value= loss)
     fila+=1
     num+=1
-wb.save('./DATOS_RED/RESULTADOS.xlsx') # los datos son guardados en la ruta especificada
+wb.save('./DATOS_RED/RESULTADOS.xlsx') # los datos son guardados en la ruta especificada'''

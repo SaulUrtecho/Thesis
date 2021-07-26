@@ -11,6 +11,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import f1_score
+from sklearn.metrics import roc_curve, auc, roc_auc_score
 import matplotlib.pyplot as plt 
 
 # Se coloca la ruta del conjunto de validacion para poder medir la eficacia de las predicciones
@@ -24,16 +25,38 @@ modelo = load_model('./DATOS_RED/MODELO_V2.h5')
 test_datagen = ImageDataGenerator(rescale=1./255)
 
 test_generator = test_datagen.flow_from_directory(
-        test_path,
+        test_path,    # el tamaño de el directorio es 500
         target_size=(200, 200),
         batch_size=32,
         class_mode='binary',
         shuffle=False)
 
+
 # Se realiza la prediccion pasando el generador, y el numero de pasos
 # si este resultado es mayor a 0.5, sera Sano, sino es Enfermo, el resultado es convertido a entero 0 o 1
 # de manera implicita los pasos son obtenidos dividiendo el tamaño del conjunto entre el batch size
-prediccion = (modelo.predict(test_generator, steps=len(test_generator), verbose=1)>0.5).astype('int32') # Se crea el GENERADOR con la prediccion
+prediccion = (modelo.predict(test_generator, verbose=1)>0.5).astype('int32') # Se crea el GENERADOR con la prediccion
+
+# Creamos la grafica ROC
+fpr, tpr, _ = roc_curve(test_generator.classes, prediccion)
+roc_auc = auc(fpr, tpr)
+
+plt.figure()
+lw = 2
+plt.plot(fpr, tpr, color='darkorange',
+         lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver Operating Characteristic')
+plt.legend(loc="lower right")
+plt.savefig('./METRICAS/GraficaROC.png')
+plt.show()
+
+
+
 
 print('El tamaño del generador es: ', len(prediccion)) # Muestra el total de predicciones generadas desde la ruta 
 print(prediccion) # Muestra el valor de cada prediccion en un arreglo 2D [[1],[0],...]
@@ -65,7 +88,7 @@ print()
 # y la columna class que contiene las clases reales, este como es una lista comun, se obtienen todos los elementos con [:]
 # el excel es posteriormente se guarda en la carpeta MODELO
 results = pd.DataFrame({"file":filenames, "pr":prediccion[:,0], "class":real[:]})
-results.to_excel('./METRICAS/Predicciones2.xlsx', sheet_name='Resultados de las Predicciones')
+results.to_excel('./METRICAS/Predicciones3.xlsx', sheet_name='Resultados de las Predicciones')
 print(results)
 
 
@@ -106,7 +129,7 @@ print('Puntaje F1: ', f1)
 
 ######### Se Guardan Las Metricas en un Archivo de Texto ##########
 
-archivoPuntajes = open('./METRICAS/Scores2.txt', 'w')
+archivoPuntajes = open('./METRICAS/Scores3.txt', 'w')
 archivoPuntajes.write('Puntaje de Clasificación de Precisión: ' + str(ac) + '\n')
 archivoPuntajes.write('\n')
 archivoPuntajes.write('Puntaje de Recuperación: ' + str(rc) + '\n')
@@ -130,6 +153,6 @@ plt.yticks(tick_marks, classNames)
 for fila in range(2):
     for columna in range(2):
         plt.text(columna,fila, str(cm[fila][columna]))
-plt.savefig('./METRICAS/MatrizConfusion2.png')
+plt.savefig('./METRICAS/MatrizConfusion3.png')
 plt.show()
 plt.close()
