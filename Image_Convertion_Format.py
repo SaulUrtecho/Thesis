@@ -5,7 +5,7 @@ import re
 import os
 
 
-imgpath = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/test_set'
+imgpath = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/test_set'
 
 images = []
 dircount = []

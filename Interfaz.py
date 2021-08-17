@@ -17,12 +17,12 @@ import re
 
 # Configuramos el alto y ancho que tendran las imagenes a utilizar en la interfaz
 longitud, altura = 200, 200
-ruta_logo_itm = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/logo.jpg'
-rutaModelo2 = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATOS_RED/MODELO_V2.h5'
-rutaModelo = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/MODELO_V1.h5'
+ruta_logo_itm = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/logo.jpg'
+rutaModelo2 = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATOS_RED/MODELO_V2.h5'
+rutaModelo = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/MODELO_V1.h5'
 
-rutaPesos2 = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATOS_RED/PESOS_V2.h5'
-rutaPesos = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/PESOS_V1.h5'
+rutaPesos2 = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATOS_RED/PESOS_V2.h5'
+rutaPesos = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/PESOS_V1.h5'
 # Esta es la clase que crea la interfaz grafica se utiliza la POO
 class Principal():
     # Metodo constructor el cual recibe un objeto Tk()

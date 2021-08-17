@@ -15,7 +15,7 @@ from sklearn.metrics import roc_curve, auc, roc_auc_score
 import matplotlib.pyplot as plt 
 
 # Se coloca la ruta del conjunto de validacion para poder medir la eficacia de las predicciones
-test_path = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATASET/TEST_SET'
+test_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TEST_SET'
 
 # Cargamos el modelo
 modelo = load_model('./DATOS_RED/MODELO_V2.h5')
