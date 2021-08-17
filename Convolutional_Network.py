@@ -16,12 +16,12 @@ from openpyxl import Workbook
 K.clear_session() #limpia el backend de keras para que no haya informacion basura 
 
 # Se definen las rutas de los conjuntos de entrenamiento y el de validacion
-train_path = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATASET/TRAINING_SET'
-test_path = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATASET/TEST_SET'
+train_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TRAINING_SET'
+test_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TEST_SET'
 
 
 #Leyendo imagenes para comprobar que si se puede acceder a la carpeta de entrenamiento
-'''enf_path = 'C:/Users/saulm/Documents/python/deep_learning/cnn/Coral_Reef_Disease/DATASET/TRAINING_SET/ENFERMOS/'
+'''enf_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TRAINING_SET/ENFERMOS/'
 enf_training = []
 cont = 0
 
