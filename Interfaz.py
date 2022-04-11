@@ -7,9 +7,11 @@ from tkinter import filedialog as fd  # Esta libreria sirve para abrir una venta
 import cv2
 from keras_preprocessing import image
 import numpy as np
+import tensorflow as tf
 from keras.preprocessing.image import load_img, img_to_array
 from keras.models import load_model
-from keras.utils import CustomObjectScope
+#from tensorflow.python.keras.utils import custom_object_scope
+#from tensorflow.keras.utils import custom_object_scope
 from keras.initializers import glorot_uniform
 from tkinter import Tk, Label, Button, Entry, ttk
 import tkinter
@@ -192,8 +194,9 @@ class Principal():
         self.botonPredict.pack_forget()  # los widgets son limpiados de nuevo al hacer una prediccion ya que si no se sobreescriben en los anteriores
         self.botonSelNuevament.pack_forget()
         self.panel_A.pack_forget()
+        
 
-        with CustomObjectScope({'GlorotUniform':glorot_uniform()}): # cargamos el modelo y los pesos obtenidos de las rutas
+        with tf.keras.utils.custom_object_scope({'GlorotUniform':glorot_uniform()}): # cargamos el modelo y los pesos obtenidos de las rutas
             cnn = load_model(self.ruta_modelo)
         cnn.load_weights(self.ruta_pesos)
 
