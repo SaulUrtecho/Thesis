@@ -15,10 +15,10 @@ from sklearn.metrics import roc_curve, auc, roc_auc_score
 import matplotlib.pyplot as plt 
 
 # Se coloca la ruta del conjunto de validacion para poder medir la eficacia de las predicciones
-test_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TEST_SET'
+test_path = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATASET/TEST_SET'
 
 # Cargamos el modelo
-modelo = load_model('./DATOS_RED/MODELO_V2.h5')
+modelo = load_model('./DATOS_RED/MODELO_V3.h5')
 
 # Se convierten los valores a punto flotante, y se crea un generador para hacer las pruebas ya que el modelo 
 # fue creado usando generadores
@@ -52,7 +52,7 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('Receiver Operating Characteristic')
 plt.legend(loc="lower right")
-plt.savefig('./METRICAS/GraficaROC.png')
+plt.savefig('./METRICAS/GraficaROC3.png')
 plt.show()
 
 
@@ -88,7 +88,7 @@ print()
 # y la columna class que contiene las clases reales, este como es una lista comun, se obtienen todos los elementos con [:]
 # el excel es posteriormente se guarda en la carpeta MODELO
 results = pd.DataFrame({"file":filenames, "pr":prediccion[:,0], "class":real[:]})
-results.to_excel('./METRICAS/Predicciones3.xlsx', sheet_name='Resultados de las Predicciones')
+results.to_excel('./METRICAS/Predicciones33.xlsx', sheet_name='Resultados de las Predicciones')
 print(results)
 
 
@@ -129,7 +129,7 @@ print('Puntaje F1: ', f1)
 
 ######### Se Guardan Las Metricas en un Archivo de Texto ##########
 
-archivoPuntajes = open('./METRICAS/Scores3.txt', 'w')
+archivoPuntajes = open('./METRICAS/Scores33.txt', 'w')
 archivoPuntajes.write('Puntaje de Clasificación de Precisión: ' + str(ac) + '\n')
 archivoPuntajes.write('\n')
 archivoPuntajes.write('Puntaje de Recuperación: ' + str(rc) + '\n')
@@ -153,6 +153,6 @@ plt.yticks(tick_marks, classNames)
 for fila in range(2):
     for columna in range(2):
         plt.text(columna,fila, str(cm[fila][columna]))
-plt.savefig('./METRICAS/MatrizConfusion3.png')
+plt.savefig('./METRICAS/MatrizConfusion33.png')
 plt.show()
 plt.close()

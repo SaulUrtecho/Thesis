@@ -21,10 +21,10 @@ import re
 longitud, altura = 200, 200
 
 ruta_logo_itm = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/logo.jpg'
-rutaModelo2 = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATOS_RED/MODELO_V2.h5'
+rutaModelo2 = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATOS_RED/MODELO_V3.h5'
 #rutaModelo = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/MODELO_V1.h5'
 
-rutaPesos2 = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATOS_RED/PESOS_V2.h5'
+rutaPesos2 = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATOS_RED/PESOS_V3.h5'
 #rutaPesos = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/PRIMERA_PRUEBA(ACCURACY_97)/PESOS_V1.h5'
 # Esta es la clase que crea la interfaz grafica se utiliza la POO
 class Principal():

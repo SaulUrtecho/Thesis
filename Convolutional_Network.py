@@ -16,12 +16,12 @@ from openpyxl import Workbook
 K.clear_session() #limpia el backend de keras para que no haya informacion basura 
 
 # Se definen las rutas de los conjuntos de entrenamiento y el de validacion
-train_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TRAINING_SET'
-test_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TEST_SET'
+train_path = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATASET/TRAINING_SET'
+test_path = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATASET/TEST_SET'
 
 
 #Leyendo imagenes para comprobar que si se puede acceder a la carpeta de entrenamiento
-'''enf_path = 'C:/Users/saulm/Documents/Python/Deep_Learning/RNC/Coral_Reef_Disease/DATASET/TRAINING_SET/ENFERMOS/'
+'''enf_path = 'C:/Users/saulu/Documents/Proyecto_Tesis/Thesis/DATASET/TRAINING_SET/ENFERMOS/'
 enf_training = []
 cont = 0
 
@@ -119,8 +119,8 @@ directorio ='./DATOS_RED/'
 if not os.path.exists(directorio):
     os.mkdir(directorio)  # se crea la carpeta en la ruta actual del proyecto
 #el modelo y los pesos son guardados respectivamente
-model.save('./DATOS_RED/MODELO_V2.h5')
-model.save_weights('./DATOS_RED/PESOS_V2.h5')
+model.save('./DATOS_RED/MODELO_V3.h5')
+model.save_weights('./DATOS_RED/PESOS_V3.h5')
 
 # Con el objeto creado podemos acceder al diccionario donde se almacenan los parametros que arroja el modelo
 history_dict = history.history
